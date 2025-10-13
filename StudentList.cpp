@@ -14,7 +14,7 @@ struct Student{
 //define functions
 void Print(vector<Student*>& vS);
 void Add(vector<Student*>& vS);
-void Delete();
+void Delete(vector<Student*>& vS);
 
 
 int main(){
@@ -34,7 +34,7 @@ int main(){
       Add(vS);
     }
     else if(strcmp(input, "DELETE") == 0){
-      Delete();
+      Delete(vS);
     }
     else if(strcmp(input, "PRINT") == 0){
       Print(vS);
@@ -88,9 +88,27 @@ void Add(vector<Student*>& vS){ //BREAKS when: char is entered into ID or GPA, s
 }
 
  
-void Delete(){
-  cout<<"Delete"<<endl;
-    //for loop somewhere
+void Delete(vector<Student*>& vS){
+  cout<<"Enter the ID number of the student you'd like to delete: "<<endl;
+  int idDelete;
+  bool exists = false;
+
+  cin>>idDelete;
+  cin.ignore();
+  
+  for(auto it = vS.begin(); it != vS.end(); it++){
+    //if the id matches the delete
+    if((*it)->id == idDelete){
+      exists = true;
+      delete (*it);
+      vS.erase(it);
+      return;
+    }
+    if(exists == false){
+      cout<<"ID not found, try again."<<endl;
+    }
+  }
+  
 }
 
  
